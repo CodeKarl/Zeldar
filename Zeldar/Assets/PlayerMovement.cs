@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Character attributes:")]
-    public float MOVEMENT_BASE_SPEED = 5.0f;
+    public float MOVEMENT_BASE_SPEED = 3.0f;
 
     [Space]
     [Header("Movement statistics:")]
@@ -15,11 +15,12 @@ public class PlayerMovement : MonoBehaviour
     [Space]
     [Header("References:")]
     public Rigidbody2D rigidBody;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         movementSpeed = Mathf.Clamp(movementDirection.magnitude, 0.0f, 1.0f);
         movementDirection.Normalize();
+        animator.SetFloat("Movement Speed", movementSpeed);
     }
 
     void Move()
